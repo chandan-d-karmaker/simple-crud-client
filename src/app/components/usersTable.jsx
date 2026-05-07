@@ -1,8 +1,14 @@
-import { Button, Table } from '@heroui/react';
+import { AlertDialog, Button, Table } from '@heroui/react';
 import Link from 'next/link';
 import React from 'react';
+import { deleteUser } from '../lib/actions';
 
 const UsersTable = ({ users }) => {
+
+    const handleDelete = async(userId)=>{
+        await deleteUser(userId);
+    }
+
     return (
         <Table className="w-4/5 mx-auto">
             <Table.ScrollContainer>
@@ -26,7 +32,34 @@ const UsersTable = ({ users }) => {
                                     <Link href={`/users/${user._id}`}>
                                         <Button variant='outline'>Edit</Button>
                                     </Link>
-                                    <Button variant='danger'>Delete</Button>
+                                    <AlertDialog>
+                                        <Button variant="danger">Delete</Button>
+                                        <AlertDialog.Backdrop>
+                                            <AlertDialog.Container>
+                                                <AlertDialog.Dialog className="sm:max-w-100">
+                                                    <AlertDialog.CloseTrigger />
+                                                    <AlertDialog.Header>
+                                                        <AlertDialog.Icon status="danger" />
+                                                        <AlertDialog.Heading>Delete user permanently?</AlertDialog.Heading>
+                                                    </AlertDialog.Header>
+                                                    <AlertDialog.Body>
+                                                        <p>
+                                                            This will permanently delete <strong>{user.name}</strong> and all of its
+                                                            data. This action cannot be undone.
+                                                        </p>
+                                                    </AlertDialog.Body>
+                                                    <AlertDialog.Footer>
+                                                        <Button slot="close" variant="tertiary">
+                                                            Cancel
+                                                        </Button>
+                                                        <Button slot="close" onClick={()=> handleDelete(user._id)} variant="danger">
+                                                            Delete user
+                                                        </Button>
+                                                    </AlertDialog.Footer>
+                                                </AlertDialog.Dialog>
+                                            </AlertDialog.Container>
+                                        </AlertDialog.Backdrop>
+                                    </AlertDialog>
                                 </Table.Cell>
                             </Table.Row>)
                         }
