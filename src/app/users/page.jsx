@@ -2,6 +2,7 @@ import React from 'react';
 import { getUsers } from '../lib/data';
 import UsersTable from '../components/usersTable';
 import { deleteUser } from '../lib/actions';
+import AddUser from '../components/AddUser';
 
 const UsersPage = async () => {
 
@@ -10,9 +11,12 @@ const UsersPage = async () => {
     console.log(users);
     return (
         <div>
-            <h2 className='text-center'>User Management System</h2>
-            <p className='text-center'>total users: {users.length}</p>
-            <UsersTable users={users} handleUserAction = {deleteUser} />
+            <div className='flex flex-col items-center justify-center gap-2 mb-4'>
+                <h2>User Management System</h2>
+                <p>total users: {users.length}</p>
+                <AddUser />
+            </div>
+            <UsersTable users={users} handleUserAction={deleteUser} />
         </div>
     );
 };
