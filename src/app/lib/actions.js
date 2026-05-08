@@ -23,6 +23,27 @@ export const CreateUser = async(formData) =>{
     return data;
 }
 
+export const updateuser = async(formdata) =>{
+    'use server'
+
+    const updatedUser = Object.fromEntries(formdata.entries());
+
+    const res = await fetch(``, {
+        method: 'PATCH',
+        headers: {
+            'content-type':'application/json'
+        },
+        body: JSON.stringify(updatedUser)
+    })
+
+    const data = await res.json();
+    console.log("After updating: ", data);
+
+    // todo: revalidate cache
+
+    return data;
+}
+
 export const deleteUser = async(userId) =>{
     'use server'
     
