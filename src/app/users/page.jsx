@@ -1,7 +1,7 @@
 import React from 'react';
 import { getUsers } from '../lib/data';
 import UsersTable from '../components/usersTable';
-import { deleteUser } from '../lib/actions';
+import { CreateUser, deleteUser } from '../lib/actions';
 import AddUser from '../components/AddUser';
 
 const UsersPage = async () => {
@@ -14,7 +14,7 @@ const UsersPage = async () => {
             <div className='flex flex-col items-center justify-center gap-2 mb-4'>
                 <h2>User Management System</h2>
                 <p>total users: {users.length}</p>
-                <AddUser />
+                <AddUser createUserAction = {CreateUser} />
             </div>
             <UsersTable users={users} handleUserAction={deleteUser} />
         </div>
